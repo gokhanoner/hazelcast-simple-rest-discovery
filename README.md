@@ -8,8 +8,6 @@ Provides a HTTP REST endpoint based discovery strategy for Hazlecast 3.6+ enable
  * [Usage](#usage)
 
  
- ![Diagram of hazelcast consul discovery strategy](/docs/diag.png "Diagram2")
- 
  ## <a id="requirements"></a>Requirements
  
  * Java 6+

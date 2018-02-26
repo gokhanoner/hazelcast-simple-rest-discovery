@@ -74,7 +74,7 @@ Following are example declarative and programmatic configuration snippets:
 Here are the definitions of the properties
 
 * `endpoint-url`: REST service url.
-* `request-params`: Request parameters, if any. Format: `param1=val1&param2=val2`. It is optional.
+* `request-params`: Request parameters, if any. Format: `param1=val1&param2=val2`. It is optional. When using multiple parameters, `&` need to be escaped as `&amp;`. 
 * `private-address-property`: Name of the private address property. Default value `private-address`. It is optional.
 * `public-address-property`: Name of the public address property. Default value `public-address`. It is optional.
 * `conn-timeout`: Connection timeout to REST service, in milis. Default value `10000`. It is optional.

@@ -15,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ import static com.oner.discovery.rest.SimpleRestDiscoveryConfiguration.ENDPOINT_
 import static com.oner.discovery.rest.SimpleRestDiscoveryConfiguration.MEMBER_PORT;
 import static com.oner.discovery.rest.SimpleRestDiscoveryConfiguration.PRIVATE_ADDRESS;
 import static com.oner.discovery.rest.SimpleRestDiscoveryConfiguration.PUBLIC_ADDRESS;
+import static com.oner.discovery.rest.SimpleRestDiscoveryConfiguration.READ_TIMEOUT;
 import static com.oner.discovery.rest.SimpleRestDiscoveryConfiguration.REQUEST_PARAMS;
 
 public class SimpleRestDiscoveryStrategy extends AbstractDiscoveryStrategy {
@@ -54,7 +56,7 @@ public class SimpleRestDiscoveryStrategy extends AbstractDiscoveryStrategy {
         this.publicAddressProp = getOrDefault(PREFIX, PUBLIC_ADDRESS.getDefinition(), PUBLIC_ADRESS_PROPERTY);
         this.memberPort = getOrDefault(PREFIX, MEMBER_PORT.getDefinition(), NetworkConfig.DEFAULT_PORT);
         this.connTimeout = getOrDefault(PREFIX, CONNECTION_TIMEOUT.getDefinition(), DEFAULT_TIMEOUT);
-        this.readTimeout = getOrDefault(PREFIX, REQUEST_PARAMS.getDefinition(), DEFAULT_TIMEOUT);
+        this.readTimeout = getOrDefault(PREFIX, READ_TIMEOUT.getDefinition(), DEFAULT_TIMEOUT);
     }
 
     @Override
@@ -95,8 +97,8 @@ public class SimpleRestDiscoveryStrategy extends AbstractDiscoveryStrategy {
     List<Map<String, String>> callService() throws IOException {
         StringBuilder stringBuilder = new StringBuilder(endpointUrl);
         if (!StringUtil.isNullOrEmptyAfterTrim(requestParams)) {
-            stringBuilder.append("?q=");
-            stringBuilder.append(URLEncoder.encode(requestParams, "UTF-8"));
+            stringBuilder.append('?');
+            stringBuilder.append(HTTPUtil.escapeParams(requestParams));
         }
 
         URL url = new URL(stringBuilder.toString());

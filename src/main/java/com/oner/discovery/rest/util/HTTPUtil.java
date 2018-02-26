@@ -7,10 +7,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
 public final class HTTPUtil {
 
@@ -31,5 +34,19 @@ public final class HTTPUtil {
         }
         in.close();
         return response.toString();
+    }
+
+    public static String escapeParams(final String params) throws UnsupportedEncodingException {
+        String[] attributes = params.split("&");
+        StringJoiner joiner = new StringJoiner("&");
+        for (int i = 0; i < attributes.length; i++) {
+            String[] kv = attributes[i].split("=", 2);
+            StringBuilder sb = new StringBuilder();
+            sb.append(URLEncoder.encode(kv[0], "UTF-8"));
+            sb.append("=");
+            sb.append(URLEncoder.encode(kv[1], "UTF-8"));
+            joiner.add(sb.toString());
+        }
+        return joiner.toString();
     }
 }

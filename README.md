@@ -31,6 +31,19 @@ Expected address format:  `ip/host-name[:port]`
 
 Valid address examples: `127.0.0.1`, `my-member-node:5701`
 
+Example output (JSON Formatted):
+
+```
+[
+    {
+        "private-address": "10.0.0.1:5703"
+    },
+    {
+        "private-address": "10.0.0.2"
+    }
+]
+```
+
 
 ## <a id="usage"></a>Usage
 
